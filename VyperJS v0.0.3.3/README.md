@@ -3,7 +3,7 @@
 ### What is this repository for? ###
 
 * A javascript library used for created cool 2d projects using the canvas element in HTML5.
-* v0.0.3.2
+* v0.0.3.3
 
 ### How do I get set up? ###
 
