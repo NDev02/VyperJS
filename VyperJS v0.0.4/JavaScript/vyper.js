@@ -39,12 +39,15 @@ var Canvas = {
 		this.context = document.getElementsByTagName("canvas")[0].getContext("2d");
   	},
 	background: function(color){
-		this.clear();
+		//this.clear();
 		this.context.fillStyle = color.toString();
 		this.context.fillRect(0, 0, this.width, this.height);
 	},
 	clear: function(){
 		this.createCanvas(this.width, this.height);
+	}, 
+	randomPosition: function(){
+		return (new VyVector(Math.random()*this.width,Math.random()*this.height));
 	}
 }
 
@@ -207,18 +210,36 @@ var VyVectorTools = {
 function VyVector(x, y){
 	this.x = x;
 	this.y = y;
-	this.pointingTo = [Canvas.width,Canvas.height];
-	this.magnitude = 1;
+	this.pointingTo = [Math.random() * Canvas.width, Math.random() * Canvas.height];
+	this.magnitude = [1,1];
 	this.setPointingTo = function(x,y){
 		this.pointingTo = [x,y];
-		this.magnitude = (this.pointingTo[0] - this.x);
 	}
-	this.setMagnitude = function(length){
-		this.magnitude = length;
+	this.setMagnitude = function(x,y){
+		this.magnitude[0] = x;
+		this.magnitude[1] = y;
 	}
 	this.move = function(){
-		this.x += this.pointingTo[0] * this.magnitude/100;
-		this.y += this.pointingTo[1] * this.magnitude/100;
+		if(this.pointingTo[0] < this.x){
+			this.magnitude[0] = Math.abs(this.magnitude[0]) * -1;
+		}
+		if(this.pointingTo[1] < this.y){
+			this.magnitude[1] = Math.abs(this.magnitude[1]) * -1;
+		}
+		if(this.pointingTo[0] > this.x){
+			this.magnitude[0] = Math.abs(this.magnitude[0]) * 1;
+		}
+		if(this.pointingTo[1] > this.y){
+			this.magnitude[1] = Math.abs(this.magnitude[1]) * 1;
+		}
+		if(this.pointingTo[0] === this.x){
+			this.magnitude[0] = 0;
+		}
+		if(this.pointingTo[1] === this.y){
+			this.magnitude[1] = 0;
+		}
+		this.x += this.magnitude[0];
+		this.y += this.magnitude[1];
 	}
 }
 

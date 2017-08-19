@@ -1,2 +1,2 @@
 A javascript graphics/game library;
-Current version is v0.0.3
+Current version is v0.0.4
