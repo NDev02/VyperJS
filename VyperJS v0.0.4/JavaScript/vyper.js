@@ -5,7 +5,7 @@
 */
 
 var drawLoop;
-var fps = 60;
+var fps = 1;
 
 function VyperCoreLaunch(){
   console.log("Made with VyperJS v0.0.3.3");
@@ -48,6 +48,25 @@ var Canvas = {
 	}, 
 	randomPosition: function(){
 		return (new VyVector(Math.random()*this.width,Math.random()*this.height));
+	}
+}
+
+var VyTweakedMath = {
+	random: function(max, min){
+		var out = Math.random() * max;
+		if(out < (min || 0)){
+			out = ((min - out) + out) + (out * Math.random())/10;
+		}
+		if(out > max){
+			out = max;
+		}
+		return out;
+	}
+}
+
+var VyUtils = {
+	transform: function(position){
+		Canvas.context.transform(0, 0, 0, 0, position.x, position.y);
 	}
 }
 
